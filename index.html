@@ -69,28 +69,131 @@
             }
         }
 
-        /* Optymalizacja druku do PDF bez ucinania stron */
+        /* Optymalizacja druku do PDF bez ucinania stron (Kluczowa poprawka) */
         @media print {
             body {
-                background: white !important;
+                background: #FDFBF7 !important;
                 color: #282030 !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
             .no-print {
                 display: none !important;
             }
             .a4-page {
-                width: 210mm;
-                height: 297mm !important;
+                width: 210mm !important;
+                height: 297mm !important; /* Wymuszenie idealnej wysokości kartki A4 */
                 min-height: 297mm !important;
                 margin: 0 !important;
-                padding: 15mm 15mm !important;
+                padding: 10mm 12mm !important; /* Zmniejszony margines przy druku dla oszczędności miejsca */
                 box-shadow: none !important;
                 page-break-after: always !important;
                 page-break-inside: avoid !important;
                 background: #FDFBF7 !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                overflow: hidden !important;
+                overflow: visible !important; /* Wyłączenie ucinania tekstu */
+                display: flex !important;
+                flex-direction: column !important;
+                justify-content: space-between !important;
+                box-sizing: border-box !important;
+            }
+
+            /* Zabezpieczenie przed pionowym rozciąganiem pytań w PDF */
+            [id$="-options"] > div {
+                display: flex !important;
+                flex-direction: row !important;
+                align-items: center !important;
+                justify-content: space-between !important;
+                gap: 12px !important;
+                padding-top: 4px !important;
+                padding-bottom: 4px !important;
+                border-bottom: 1px dashed rgba(77, 62, 127, 0.1) !important;
+            }
+
+            [id$="-options"] > div > span {
+                font-size: 11px !important;
+                line-height: 1.2 !important;
+                flex: 1 !important;
+                text-align: left !important;
+            }
+
+            [id$="-options"] > div > div[data-q] {
+                display: flex !important;
+                flex-direction: row !important;
+                justify-content: space-between !important;
+                width: 140px !important; /* Wymuszenie równego, wąskiego bloku poziomego */
+                flex-shrink: 0 !important;
+            }
+
+            /* Pomniejszenie kółek z odpowiedziami wyłącznie przy zapisie PDF */
+            .w-9.h-9, .w-10.h-10 {
+                width: 24px !important;
+                height: 24px !important;
+                font-size: 10px !important;
+                line-height: 24px !important;
+                border-width: 1px !important;
+            }
+
+            /* Kompresja pustych przestrzeni przy wydruku */
+            .space-y-10 > * + * { margin-top: 1.25rem !important; }
+            .space-y-8 > * + * { margin-top: 0.75rem !important; }
+            .space-y-6 > * + * { margin-top: 0.5rem !important; }
+            .space-y-4 > * + * { margin-top: 0.35rem !important; }
+            .space-y-3.5 > * + * { margin-top: 0.3rem !important; }
+            
+            .p-6, .md\:p-8 { padding: 8px 12px !important; }
+            .p-5, .p-4 { padding: 6px 10px !important; }
+
+            /* Kompresja tabeli wyników na Stronie 9 */
+            #wyniki-sekcja .space-y-5 {
+                margin-top: 4px !important;
+            }
+            #wyniki-sekcja table {
+                font-size: 11px !important;
+                margin-top: 4px !important;
+            }
+            #wyniki-sekcja th, #wyniki-sekcja td {
+                padding: 3px 4px !important;
+            }
+            #wyniki-sekcja .p-6 {
+                padding: 10px !important;
+            }
+            #wyniki-sekcja .space-y-3 {
+                margin-top: 4px !important;
+            }
+            #wyniki-sekcja .h-3.5 {
+                height: 8px !important;
+            }
+
+            /* Kompresja kart interpretacji na Stronie 10 */
+            #interpretacje-sekcja .space-y-4 > div {
+                padding: 8px !important;
+                margin-top: 6px !important;
+                gap: 8px !important;
+            }
+            #interpretacje-sekcja h4 {
+                font-size: 12px !important;
+                margin-bottom: 1px !important;
+            }
+            #interpretacje-sekcja p {
+                font-size: 10px !important;
+                line-height: 1.2 !important;
+            }
+
+            /* Kompresja sekcji CTA na Stronie 11 */
+            #cta-sekcja .bg-greenLight {
+                padding: 10px !important;
+                font-size: 11px !important;
+            }
+            #final-cta-block {
+                padding: 12px !important;
+                margin-top: 10px !important;
+            }
+            #final-cta-block h3 {
+                font-size: 14px !important;
+            }
+            #final-cta-block p {
+                font-size: 10px !important;
+                line-height: 1.2 !important;
             }
         }
 
@@ -231,7 +334,7 @@
                         W&nbsp;każdym działaniu – czy to&nbsp;biznes, relacje, wychowanie, twórczość czy codzienne ogarnianie życia - przechodzimy przez 5&nbsp;faz. I&nbsp;często w&nbsp;którejś z&nbsp;nich Twój system nerwowy zaczyna stawiać opór.
                     </p>
                     <p class="text-base md:text-lg leading-relaxed text-basePlum">
-                        Czasem nie wiesz, czego chcesz. Czasem nie możesz zacząć. Czasem tracisz energię w&nbsp;połowie. Czasem kończysz, ale nie pokazujesz. A&nbsp;czasem działasz bez końca i&nbsp;nie umiesz odpocząć.
+                        Czasem nie wiesz, czego chcesz. Czasem nie możesz zacząć. Czasem tracisz energię w&nbsp;połowie. Czasem kończysz, ale nie pokazujesz. A&nbsp;czasem działasz bez końca i&nbsp;nie umiesz odprężyć się i&nbsp;odpocząć.
                     </p>
                     <p class="text-lg font-bold text-lavenderDark italic">
                         To&nbsp;nie jest kwestia motywacji. To&nbsp;kwestia fazy, w&nbsp;której masz blokadę.
@@ -250,14 +353,14 @@
 
                 <div class="bg-pinkLight border-l-4 border-pinkMedium p-5 rounded-r-2xl max-w-2xl mx-auto text-center shadow-sm">
                     <p class="text-sm text-pinkDark font-bold uppercase tracking-wider">Metoda Joli Kałużnej</p>
-                    <p class="text-base text-neutral-700 italic mt-1 font-medium">„Jeśli coś Ci&nbsp;nie wychodzi w&nbsp;biznesie, relacjach, rodzicielstwie czy realizowaniu planów - to&nbsp;nie znaczy, że robisz coś źle. Test 5F&nbsp;pokazuje Ci&nbsp;coś, czego nie widać na&nbsp;pierwszy rzut oka: gdzie dokładnie Twój system nerwowy zatrzymuje Cię w&nbsp;działaniu. Bo&nbsp;kiedyś to&nbsp;zatrzymanie&nbsp;/ blokada uratowała Ci&nbsp;życie. I&nbsp;system nerwowy zapisał schemat - tak trzeba działać by&nbsp;przetrwać.”</p>
+                    <p class="text-base text-neutral-700 italic mt-1 font-medium">„Test 5F&nbsp;pokazuje Ci&nbsp;cość, czego nie widać na&nbsp;pierwszy rzut oka: gdzie dokładnie Twój system nerwowy zatrzymuje Cię w&nbsp;działaniu. Bo&nbsp;kiedyś to&nbsp;zatrzymanie&nbsp;/ blokada uratowała Ci&nbsp;życie. I&nbsp;system nerwowy zapisał schemat - tak trzeba działać by&nbsp;przetrwać.”</p>
                 </div>
 
                 <!-- Footer Signoff -->
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-5 mt-auto">
                     <span>Test Diagnostyczny 5F Joli Kałużnej</span>
                     <span class="italic font-serif">Somatic Flow & Regulation</span>
-                    <span>Strona 1 z&nbsp;9</span>
+                    <span>Strona 1 z&nbsp;11</span>
                 </div>
             </div>
         </section>
@@ -266,6 +369,7 @@
         <!-- STRONA 2: PIERWSZY PROJEKT - TEORIA SOMATYKI-->
         <!-- ========================================== -->
         <section class="a4-page relative overflow-hidden">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-1.5 bg-yellowMedium"></div>
             
             <div class="my-auto space-y-6 flex flex-col justify-between h-full py-4">
@@ -313,7 +417,7 @@
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-3">
                     <span>Metoda Joli Kałużnej • Podłoże</span>
                     <span class="italic font-serif">Kod Twojego Urodzenia</span>
-                    <span>Strona 2 z&nbsp;9</span>
+                    <span>Strona 2 z&nbsp;11</span>
                 </div>
             </div>
         </section>
@@ -322,6 +426,7 @@
         <!-- STRONA 3: KARTOGRAFIA I KORZENIE NAUKOWE   -->
         <!-- ========================================== -->
         <section class="a4-page relative overflow-hidden">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-1.5 bg-greenMedium"></div>
             
             <div class="my-auto space-y-6 flex flex-col justify-between h-full py-4">
@@ -352,7 +457,7 @@
                         <div class="bg-white p-5 rounded-2xl border border-neutral-100 shadow-sm space-y-2">
                             <h4 class="font-serif font-bold text-basePlum border-b pb-1">Ray Castellino</h4>
                             <p class="text-xs md:text-sm text-neutral-600 leading-relaxed">
-                                Połączył cykl działania z&nbsp;porodem: „Trauma okołoporodowa to&nbsp;przerwany cykl działania”. Poród jest pierwszym projektem – jeśli faza została przerwana, ciało zapisuje to&nbsp;jako strategię (np. szybki poród = „muszę działać natychmiast”, cesarka = „ktoś musi to&nbsp;zrobić za&nbsp;mnie”, brak kontaktu po&nbsp;= „sukces nie jest bezpieczny”).
+                                Połączył cykl działania z&nbsp;porodem: „Trauma okołoporodowa to&nbsp;przerwany cykl działania”. Poród jest pierwszym projektem – jeśli faza została przerwana, ciało zapisuje to&nbsp;jako strategię (np. szybki poród = „muszę działać natychmiast”, cesarka = „ktoś musi to&nbsp;zrobić za&nbsp;mnie”, brak kontaktu po&nbsp; = „sukces nie jest bezpieczny”).
                             </p>
                         </div>
                         <div class="bg-white p-5 rounded-2xl border border-neutral-100 shadow-sm space-y-2">
@@ -372,7 +477,7 @@
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-3">
                     <span>Metoda Joli Kałużnej • Tradycja</span>
                     <span class="italic font-serif">Zintegrowana Wiedza Somatyczna</span>
-                    <span>Strona 3 z&nbsp;9</span>
+                    <span>Strona 3 z&nbsp;11</span>
                 </div>
             </div>
         </section>
@@ -381,6 +486,7 @@
         <!-- STRONA 4: DLA KOGO I CO ZROBISZ Z WYNIKIEM  -->
         <!-- ========================================== -->
         <section class="a4-page relative overflow-hidden">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-1.5 bg-pinkMedium"></div>
             
             <div class="my-auto space-y-8 flex flex-col justify-between h-full py-4">
@@ -397,7 +503,7 @@
                             <li class="flex items-start gap-2">🌸 <span>zaczynają i&nbsp;nie kończą,</span></li>
                             <li class="flex items-start gap-2">🌸 <span>wiedzą, czego chcą, ale nie ruszają,</span></li>
                             <li class="flex items-start gap-2">🌸 <span>kończą, ale nie pokazują,</span></li>
-                            <li class="flex items-start gap-2">🌸 <span>działają, ale nie odpoczywają,</span></li>
+                            <li class="flex items-start gap-2">🌸 <span>działają, ale nie odprężają się,</span></li>
                             <li class="flex items-start gap-2">🌸 <span>czują, że „coś ich zatrzymuje”,</span></li>
                             <li class="flex items-start gap-2">🌸 <span>chcą zrozumieć swój system nerwowy,</span></li>
                             <li class="flex items-start gap-2">🌸 <span>chcą działać z&nbsp;lekkością, a&nbsp;nie z&nbsp;walką.</span></li>
@@ -426,7 +532,7 @@
                             </li>
                             <li class="flex items-start gap-3">
                                 <span class="text-pinkDark font-bold">5.</span>
-                                <span>Przestać tracić energię na&nbsp;nie te&nbsp;narzędzia, które są&nbsp;Ci&nbsp;potrzebne.</span>
+                                <span>przestać tracić energię na&nbsp;nie te&nbsp;narzędzia, które są&nbsp;Ci&nbsp;potrzebne.</span>
                             </li>
                         </ul>
                         <div class="text-center pt-3 border-t border-pinkMedium/10 text-base text-pinkDark font-bold italic">
@@ -438,21 +544,22 @@
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-3">
                     <span>Metoda Joli Kałużnej • Plan Działania</span>
                     <span class="italic font-serif">Odzyskaj lekkość przepływu</span>
-                    <span>Strona 4 z&nbsp;9</span>
+                    <span>Strona 4 z&nbsp;11</span>
                 </div>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- STRONA 5: TEST - PYTANIA 1 - 5             -->
+        <!-- STRONA 5: TEST - PYTANIA 1 - 2             -->
         <!-- ========================================== -->
         <section class="a4-page relative">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-1.5 bg-lavenderDark"></div>
             
             <div class="space-y-4 flex flex-col justify-between h-full py-4">
                 <div class="border-b border-neutral-100 pb-2 flex justify-between items-center">
                     <span class="font-serif italic text-base text-lavenderDark font-bold">Krok I: Doświadczanie w&nbsp;ciele</span>
-                    <span class="text-xs uppercase tracking-widest text-neutral-400">Pytania 1 - 5</span>
+                    <span class="text-xs uppercase tracking-widest text-neutral-400">Pytania 1 - 2</span>
                 </div>
 
                 <!-- Instrukcja na&nbsp;Stronie Testu -->
@@ -528,12 +635,37 @@
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="2" data-opt="d"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 font-medium">E. Realizuję, ale nie czuję satysfakcji od&nbsp;razu myślę o&nbsp;kolejnym pomyśle.</span>
+                                <span class="md:col-span-7 text-neutral-600 font-medium">E. Realizuję, ale nie czuję satysfakcji, od&nbsp;razu myślę o&nbsp;kolejnym pomyśle.</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="2" data-opt="e"></div>
                             </div>
                         </div>
                     </div>
 
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-2">
+                    <span>Metoda Joli Kałużnej • Krok I</span>
+                    <span>Skala ocen: 0 (wcale) do&nbsp;4 (zawsze)</span>
+                    <span>Strona 5 z&nbsp;11</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- STRONA 6: TEST - PYTANIA 3 - 5             -->
+        <!-- ========================================== -->
+        <section class="a4-page relative">
+            <!-- Decorative Border -->
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-lavenderDark"></div>
+            
+            <div class="space-y-4 flex flex-col justify-between h-full py-4">
+                <div class="border-b border-neutral-100 pb-2 flex justify-between items-center">
+                    <span class="font-serif italic text-base text-lavenderDark font-bold">Krok I: Doświadczanie w&nbsp;ciele (Ciąg dalszy)</span>
+                    <span class="text-xs uppercase tracking-widest text-neutral-400">Pytania 3 - 5</span>
+                </div>
+
+                <div class="space-y-4 my-auto">
+                    
                     <!-- Pytanie 3 -->
                     <div class="bg-white p-4 md:p-5 rounded-2xl border border-neutral-100 shadow-sm space-y-3">
                         <div class="flex gap-2.5 items-start">
@@ -573,7 +705,7 @@
                         <div class="space-y-3.5 pl-8 text-sm md:text-base" id="q4-options">
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
                                 <span class="md:col-span-7 text-neutral-600 font-medium">A. Trudno mi&nbsp;poczuć, że to&nbsp;o&nbsp;mnie.</span>
-                                <div class="md:col-span-5 flex justify-between gap-1" data-q="4" data-opt="a"></div>
+                                <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="4" data-opt="a"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
                                 <span class="md:col-span-7 text-neutral-600 font-medium">B. Czuję napięcie i&nbsp;nie wiem, jak wejść w&nbsp;ten kontakt.</span>
@@ -627,23 +759,24 @@
                 </div>
 
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-2">
-                    <span>Metoda Joli Kałużnej • Krok I</span>
+                    <span>Metoda Joli Kałużnej • Krok I (Ciąg dalszy)</span>
                     <span>Skala ocen: 0 (wcale) do&nbsp;4 (zawsze)</span>
-                    <span>Strona 5 z&nbsp;9</span>
+                    <span>Strona 6 z&nbsp;11</span>
                 </div>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- STRONA 6: TEST - PYTANIA 6 - 10            -->
+        <!-- STRONA 7: TEST - PYTANIA 6 - 8             -->
         <!-- ========================================== -->
         <section class="a4-page relative">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-1.5 bg-lavenderDark"></div>
             
             <div class="space-y-4 flex flex-col justify-between h-full py-4">
                 <div class="border-b border-neutral-100 pb-2 flex justify-between items-center">
                     <span class="font-serif italic text-base text-lavenderDark font-bold">Krok I: Doświadczanie w&nbsp;ciele (Ciąg dalszy)</span>
-                    <span class="text-xs uppercase tracking-widest text-neutral-400">Pytania 6 - 10</span>
+                    <span class="text-xs uppercase tracking-widest text-neutral-400">Pytania 6 - 8</span>
                 </div>
 
                 <div class="space-y-4 my-auto">
@@ -738,6 +871,31 @@
                         </div>
                     </div>
 
+                </div>
+
+                <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-2">
+                    <span>Metoda Joli Kałużnej • Krok I (Ciąg dalszy)</span>
+                    <span>Wypełnij wszystkie punkty, aby uzyskać dokładny wynik</span>
+                    <span>Strona 7 z&nbsp;11</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========================================== -->
+        <!-- STRONA 8: TEST - PYTANIA 9 - 10            -->
+        <!-- ========================================== -->
+        <section class="a4-page relative">
+            <!-- Decorative Border -->
+            <div class="absolute top-0 left-0 w-full h-1.5 bg-lavenderDark"></div>
+            
+            <div class="space-y-4 flex flex-col justify-between h-full py-4">
+                <div class="border-b border-neutral-100 pb-2 flex justify-between items-center">
+                    <span class="font-serif italic text-base text-lavenderDark font-bold">Krok I: Doświadczanie w&nbsp;ciele (Ciąg dalszy)</span>
+                    <span class="text-xs uppercase tracking-widest text-neutral-400">Pytania 9 - 10</span>
+                </div>
+
+                <div class="space-y-4 my-auto">
+                    
                     <!-- Pytanie 9 -->
                     <div class="bg-white p-4 md:p-5 rounded-2xl border border-neutral-100 shadow-sm space-y-3">
                         <div class="flex gap-2.5 items-start">
@@ -746,23 +904,23 @@
                         </div>
                         <div class="space-y-3.5 pl-8 text-sm md:text-base" id="q9-options">
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Nie wiem, czego chcę.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">A. „Nie wiem, czego chcę.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="9" data-opt="a"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Jeszcze nie jestem gotowa.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">B. „Jeszcze nie jestem gotowa.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="9" data-opt="b"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Nie dam rady.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">C. „Nie dam rady.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="9" data-opt="c"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Nie chcę być oceniana.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">D. „Nie chcę być oceniana.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="9" data-opt="d"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Nie mogę odpocząć.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">E. „Nie mogę odpocząć.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="9" data-opt="e"></div>
                             </div>
                         </div>
@@ -776,23 +934,23 @@
                         </div>
                         <div class="space-y-3.5 pl-8 text-sm md:text-base" id="q10-options">
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Moje pragnienia nie są&nbsp;ważne.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">A. „Moje pragnienia nie są&nbsp;ważne.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="10" data-opt="a"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Ruch jest niebezpieczny.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">B. „Ruch jest niebezpieczny.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="10" data-opt="b"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Wysiłek mnie przerasta, bo&nbsp;ciągnę go&nbsp;za&nbsp;długo.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">C. „Wysiłek mnie przerasta, bo&nbsp;ciągnę go&nbsp;za&nbsp;długo.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="10" data-opt="c"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Widoczność jest niebezpieczna.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">D. „Widoczność jest niebezpieczna.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="10" data-opt="d"></div>
                             </div>
                             <div class="grid grid-cols-1 md:grid-cols-12 gap-2 items-center">
-                                <span class="md:col-span-7 text-neutral-600 italic font-medium">„Odpoczynek jest niebezpieczny.”</span>
+                                <span class="md:col-span-7 text-neutral-600 italic font-medium">E. „Odpoczynek jest niebezpieczny.”</span>
                                 <div class="md:col-span-5 flex justify-between gap-1 max-w-xs" data-q="10" data-opt="e"></div>
                             </div>
                         </div>
@@ -803,15 +961,16 @@
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-2">
                     <span>Metoda Joli Kałużnej • Krok I (Ciąg dalszy)</span>
                     <span>Wypełnij wszystkie punkty, aby uzyskać dokładny wynik</span>
-                    <span>Strona 6 z&nbsp;9</span>
+                    <span>Strona 8 z&nbsp;11</span>
                 </div>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- STRONA 7: ARKUSZ ODPOWIEDZI I PODSUMOWANIE -->
+        <!-- STRONA 9: ARKUSZ ODPOWIEDZI I PODSUMOWANIE -->
         <!-- ========================================== -->
         <section class="a4-page relative" id="wyniki-sekcja">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-1.5 bg-pinkDark"></div>
             
             <div class="space-y-4 flex flex-col justify-between h-full py-4">
@@ -823,44 +982,44 @@
                 <div class="space-y-5 my-auto">
                     <div class="text-center space-y-1">
                         <h3 class="font-serif text-2xl font-bold text-basePlum">ARKUSZ ODPOWIEDZI</h3>
-                        <p class="text-sm text-neutral-500 max-w-lg mx-auto">
+                        <p class="text-xs text-neutral-500 max-w-lg mx-auto">
                             Zsumuj punkty w&nbsp;każdej kolumnie (A, B, C, D, E). Każda faza może mieć od&nbsp;0 do&nbsp;40 punktów.
                         </p>
                     </div>
 
                     <!-- Tabela interaktywna -->
                     <div class="overflow-x-auto rounded-2xl border border-lavenderMedium/20 shadow-sm bg-white">
-                        <table class="w-full text-center border-collapse text-sm">
+                        <table class="w-full text-center border-collapse text-xs md:text-sm">
                             <thead>
                                 <tr class="bg-[#4D3E7F] text-[#FDFBF7] font-serif">
-                                    <th class="p-3 border-r border-lavenderMedium/20">Pytanie</th>
-                                    <th class="p-3 border-r border-lavenderMedium/20">A</th>
-                                    <th class="p-3 border-r border-lavenderMedium/20">B</th>
-                                    <th class="p-3 border-r border-lavenderMedium/20">C</th>
-                                    <th class="p-3 border-r border-lavenderMedium/20">D</th>
-                                    <th class="p-3">E</th>
+                                    <th class="p-2 border-r border-lavenderMedium/20">Pytanie</th>
+                                    <th class="p-2 border-r border-lavenderMedium/20">A</th>
+                                    <th class="p-2 border-r border-lavenderMedium/20">B</th>
+                                    <th class="p-2 border-r border-lavenderMedium/20">C</th>
+                                    <th class="p-2 border-r border-lavenderMedium/20">D</th>
+                                    <th class="p-2">E</th>
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-neutral-100" id="matrix-tbody">
                                 <!-- Generowane dynamicznie przez JS -->
                             </tbody>
                             <tfoot>
-                                <tr class="bg-[#F5F2FA] font-bold text-basePlum text-base border-t-2 border-[#4D3E7F]">
-                                    <td class="p-4 border-r border-neutral-200 font-serif">SUMA</td>
-                                    <td class="p-4 border-r border-neutral-200 font-mono text-lg" id="total-a">0</td>
-                                    <td class="p-4 border-r border-neutral-200 font-mono text-lg" id="total-b">0</td>
-                                    <td class="p-4 border-r border-neutral-200 font-mono text-lg" id="total-c">0</td>
-                                    <td class="p-4 border-r border-neutral-200 font-mono text-lg" id="total-d">0</td>
-                                    <td class="p-4 font-mono text-lg" id="total-e">0</td>
+                                <tr class="bg-[#F5F2FA] font-bold text-basePlum text-sm md:text-base border-t-2 border-[#4D3E7F]">
+                                    <td class="p-3 border-r border-neutral-200 font-serif">SUMA</td>
+                                    <td class="p-3 border-r border-neutral-200 font-mono text-base md:text-lg" id="total-a">0</td>
+                                    <td class="p-3 border-r border-neutral-200 font-mono text-base md:text-lg" id="total-b">0</td>
+                                    <td class="p-3 border-r border-neutral-200 font-mono text-base md:text-lg" id="total-c">0</td>
+                                    <td class="p-3 border-r border-neutral-200 font-mono text-base md:text-lg" id="total-d">0</td>
+                                    <td class="p-3 font-mono text-base md:text-lg" id="total-e">0</td>
                                 </tr>
                             </tfoot>
                         </table>
                     </div>
 
                     <!-- Panel interpretacji numerycznej -->
-                    <div class="bg-white p-6 rounded-2xl border border-neutral-100 shadow-sm space-y-4">
-                        <h4 class="font-serif text-base font-bold text-center text-basePlum uppercase tracking-wider">JAK LICZYĆ WYNIKI?</h4>
-                        <p class="text-sm md:text-base text-neutral-600 text-center leading-relaxed">
+                    <div class="bg-white p-5 rounded-2xl border border-neutral-100 shadow-sm space-y-3">
+                        <h4 class="font-serif text-sm font-bold text-center text-basePlum uppercase tracking-wider">JAK LICZYĆ WYNIKI?</h4>
+                        <p class="text-xs md:text-sm text-neutral-600 text-center leading-relaxed">
                             Najwyższy wynik = Twoja dominująca faza trudności.<br>
                             <span class="text-pinkDark font-bold bg-pinkLight px-3 py-1 rounded-full inline-block mt-1">
                                 • Wyniki powyżej 25 punktów oznaczają, że dana faza jest mocno obciążona i&nbsp;warto jej się przyjrzeć głębiej.
@@ -868,53 +1027,53 @@
                         </p>
                         
                         <!-- Mini dynamiczne wykresy graficzne -->
-                        <div class="space-y-3 pt-2 max-w-xl mx-auto">
+                        <div class="space-y-3 pt-1 max-w-xl mx-auto">
                             <div>
-                                <div class="flex justify-between text-xs font-semibold text-neutral-500 mb-1">
+                                <div class="flex justify-between text-[11px] font-semibold text-neutral-500 mb-1">
                                     <span>A. Faza 1 - Intencja</span>
                                     <span id="bar-a-label" class="font-bold">0 / 40 pkt</span>
                                 </div>
-                                <div class="w-full bg-[#EEEAF5] h-3.5 rounded-full overflow-hidden flex items-center relative">
+                                <div class="w-full bg-[#EEEAF5] h-3 rounded-full overflow-hidden flex items-center relative">
                                     <div id="chart-bar-a" class="bg-lavenderMedium h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                                     <div class="absolute left-[62.5%] top-0 bottom-0 w-0.5 bg-pinkDark"></div> <!-- 25/40 = 62.5% -->
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-semibold text-neutral-500 mb-1">
+                                <div class="flex justify-between text-[11px] font-semibold text-neutral-500 mb-1">
                                     <span>B. Faza 2 - Początek</span>
                                     <span id="bar-b-label" class="font-bold">0 / 40 pkt</span>
                                 </div>
-                                <div class="w-full bg-[#EEEAF5] h-3.5 rounded-full overflow-hidden flex items-center relative">
+                                <div class="w-full bg-[#EEEAF5] h-3 rounded-full overflow-hidden flex items-center relative">
                                     <div id="chart-bar-b" class="bg-pinkMedium h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                                     <div class="absolute left-[62.5%] top-0 bottom-0 w-0.5 bg-pinkDark"></div>
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-semibold text-neutral-500 mb-1">
+                                <div class="flex justify-between text-[11px] font-semibold text-neutral-500 mb-1">
                                     <span>C. Faza 3 - Środek</span>
                                     <span id="bar-c-label" class="font-bold">0 / 40 pkt</span>
                                 </div>
-                                <div class="w-full bg-[#EEEAF5] h-3.5 rounded-full overflow-hidden flex items-center relative">
+                                <div class="w-full bg-[#EEEAF5] h-3 rounded-full overflow-hidden flex items-center relative">
                                     <div id="chart-bar-c" class="bg-yellowMedium h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                                     <div class="absolute left-[62.5%] top-0 bottom-0 w-0.5 bg-pinkDark"></div>
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-semibold text-neutral-500 mb-1">
+                                <div class="flex justify-between text-[11px] font-semibold text-neutral-500 mb-1">
                                     <span>D. Faza 4 - Zakończenie</span>
                                     <span id="bar-d-label" class="font-bold">0 / 40 pkt</span>
                                 </div>
-                                <div class="w-full bg-[#EEEAF5] h-3.5 rounded-full overflow-hidden flex items-center relative">
+                                <div class="w-full bg-[#EEEAF5] h-3 rounded-full overflow-hidden flex items-center relative">
                                     <div id="chart-bar-d" class="bg-pinkDark h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                                     <div class="absolute left-[62.5%] top-0 bottom-0 w-0.5 bg-pinkDark"></div>
                                 </div>
                             </div>
                             <div>
-                                <div class="flex justify-between text-xs font-semibold text-neutral-500 mb-1">
+                                <div class="flex justify-between text-[11px] font-semibold text-neutral-500 mb-1">
                                     <span>E. Faza 5 - Integracja</span>
                                     <span id="bar-e-label" class="font-bold">0 / 40 pkt</span>
                                 </div>
-                                <div class="w-full bg-[#EEEAF5] h-3.5 rounded-full overflow-hidden flex items-center relative">
+                                <div class="w-full bg-[#EEEAF5] h-3 rounded-full overflow-hidden flex items-center relative">
                                     <div id="chart-bar-e" class="bg-lavenderDark h-full rounded-full transition-all duration-500" style="width: 0%"></div>
                                     <div class="absolute left-[62.5%] top-0 bottom-0 w-0.5 bg-pinkDark"></div>
                                 </div>
@@ -923,25 +1082,26 @@
                     </div>
 
                     <!-- Automatyczny dynamiczny baner wskazujący dominującą fazę -->
-                    <div id="result-badge-card" class="bg-[#F5F2FA] border border-lavenderMedium/30 rounded-2xl p-5 text-center hidden max-w-xl mx-auto">
+                    <div id="result-badge-card" class="bg-[#F5F2FA] border border-lavenderMedium/30 rounded-2xl p-4 text-center hidden max-w-xl mx-auto">
                         <p class="text-xs uppercase tracking-widest text-lavenderDark font-bold">Twój dominujący punkt utknięcia:</p>
-                        <h4 id="dominant-phase-title" class="font-serif text-lg md:text-xl font-bold text-basePlum mt-2"></h4>
-                        <p class="text-sm text-pinkDark font-semibold mt-2 leading-relaxed" id="dominant-phase-warning"></p>
+                        <h4 id="dominant-phase-title" class="font-serif text-base md:text-lg font-bold text-basePlum mt-1"></h4>
+                        <p class="text-xs md:text-sm text-pinkDark font-semibold mt-1 leading-relaxed" id="dominant-phase-warning"></p>
                     </div>
                 </div>
 
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-2">
                     <span>Metoda Joli Kałużnej • Podsumowanie Wyników</span>
                     <span class="font-semibold text-pinkDark">Przejdź na&nbsp;kolejną stronę po&nbsp;pełną interpretację</span>
-                    <span>Strona 7 z&nbsp;9</span>
+                    <span>Strona 9 z&nbsp;11</span>
                 </div>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- STRONA 8: INTERPRETACJA WYNIKÓW            -->
+        <!-- STRONA 10: INTERPRETACJA WYNIKÓW            -->
         <!-- ========================================== -->
-        <section class="a4-page relative overflow-hidden">
+        <section class="a4-page relative overflow-hidden" id="interpretacje-sekcja">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-2.5 bg-[#4D3E7F]"></div>
             
             <div class="space-y-6 flex flex-col justify-between h-full py-4">
@@ -983,7 +1143,7 @@
                         <div class="space-y-1">
                             <h4 class="font-serif font-bold text-yellowDark text-base">FAZA 3 - ŚRODEK (najwięcej punktów w&nbsp;C)</h4>
                             <p class="text-neutral-700 leading-relaxed text-xs md:text-sm">
-                                Twoje odpowiedzi wskazują na&nbsp;problem w&nbsp;Fazie 3 - Środek. To&nbsp;oznacza, że najtrudniejszy moment dla Ciebie to&nbsp;utrzymanie energii i&nbsp;wytrwałości. Możesz czuć: przeciążenie, zmęczenie, rezygnację tuż przed metą, wypalenie. <span class="font-bold text-yellowDark">To nie jest słabość to&nbsp;zmęczony układ nerwowy, który nie umie dawkować energii. Nie poddajesz się szybko wytrzymujesz za&nbsp;długo.</span>
+                                Twoje odpowiedzi wskazują na&nbsp;problem w&nbsp;Fazie 3 - Środek. To&nbsp;oznacza, że najtrudniejszy moment dla Ciebie to&nbsp;utrzymanie energii i&nbsp;wytrwałości. Możesz czuć: przeciążenie, zmęczenie, rezygnację tuż przed metą, wypalenie. <span class="font-bold text-yellowDark">To nie jest słabość to&nbsp;zmęczony układ nerwowy.</span>
                             </p>
                         </div>
                     </div>
@@ -1014,15 +1174,16 @@
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-2">
                     <span>Metoda Joli Kałużnej • Podsumowanie</span>
                     <span class="italic font-semibold text-pinkDark">Twoje ciało wie więcej</span>
-                    <span>Strona 8 z&nbsp;9</span>
+                    <span>Strona 10 z&nbsp;11</span>
                 </div>
             </div>
         </section>
 
         <!-- ========================================== -->
-        <!-- STRONA 9: INTERPRETACJA WYNIKÓW I CTA      -->
+        <!-- STRONA 11: INTERPRETACJA WYNIKÓW I CTA     -->
         <!-- ========================================== -->
-        <section class="a4-page relative overflow-hidden">
+        <section class="a4-page relative overflow-hidden" id="cta-sekcja">
+            <!-- Decorative Border -->
             <div class="absolute top-0 left-0 w-full h-2.5 bg-[#4D3E7F]"></div>
             
             <div class="space-y-6 flex flex-col justify-between h-full py-4">
@@ -1045,7 +1206,7 @@
                 </div>
 
                 <!-- PREMIUM CALL TO ACTION BLOCK -->
-                <div class="bg-[#4D3E7F] text-[#FDFBF7] p-6 rounded-2xl border border-[#9E8ECB]/40 space-y-4 shadow-lg text-center max-w-xl mx-auto">
+                <div id="final-cta-block" class="bg-[#4D3E7F] text-[#FDFBF7] p-6 rounded-2xl border border-[#9E8ECB]/40 space-y-4 shadow-lg text-center max-w-xl mx-auto">
                     <h3 class="font-serif text-lg md:text-xl font-bold tracking-wide">CHCESZ ZROZUMIEĆ SWOJĄ FAZĘ?</h3>
                     <p class="text-xs md:text-sm leading-relaxed text-lavenderLight/90">
                         Test to&nbsp;dopiero pierwszy krok. Ebook to&nbsp;pełna mapa, która pozwoli Ci&nbsp;dogłębnie zrozumieć Twoje rany działania. Zrób test, a&nbsp;następnie zapisz się na&nbsp;warsztaty somatyczne, aby bezpośrednio w&nbsp;ciele pracować dokładnie tam, gdzie jest Twoje utknięcie.
@@ -1064,7 +1225,7 @@
                 <div class="flex items-center justify-between text-xs text-neutral-400 border-t border-neutral-100 pt-2">
                     <span>Metoda Joli Kałużnej • Podsumowanie</span>
                     <span class="italic font-semibold text-pinkDark">Twoje ciało wie więcej</span>
-                    <span>Strona 9 z&nbsp;9</span>
+                    <span>Strona 11 z&nbsp;11</span>
                 </div>
             </div>
         </section>
@@ -1201,7 +1362,8 @@
                 const percentage = (sums[opt] / 40) * 100;
                 document.getElementById(`widget-${opt}-bar`).style.width = `${percentage}%`;
 
-                document.getElementById(`bar-${opt}-label`).innerText = `${sums[opt]} / 40 pkt`;
+                // POPRAWKA: innerHTML zamiast innerText, aby spacja nie wyciekała jako tekst
+                document.getElementById(`bar-${opt}-label`).innerHTML = `${sums[opt]} / 40&nbsp;pkt`;
                 const chartBar = document.getElementById(`chart-bar-${opt}`);
                 chartBar.style.width = `${percentage}%`;
 
